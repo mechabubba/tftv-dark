@@ -1,0 +1,203 @@
+/* ==UserStyle==
+@name        teamfortress.tv Dark Mode
+@author      steve (mechabubba)
+@namespace   mechabubba.tftv-dark
+@description Dark mode for teamfortress.tv.
+@homepageURL https://github.com/mechabubba/tftv-dark
+@version     0.1
+@license     Unlicense
+==/UserStyle== */
+
+/*
+# **HEY READ THIS SHIT**
+This is all based on [panda106's dark mode style](https://www.teamfortress.tv/35639/tftv-dark-theme). You can find the original repository [here](https://github.com/tino-m/TFTVDark).
+
+Their original version was tf.tv's entire `main.css` file, modified with their changes they desired. This worked, but the file included completely unnecessary and redundant styling; stuff like the entirety of font awesome, tf.tv's flag data, and the rest of tf.tv's unmodified styling. This is my attempt at cutting down the waste and making a more modular approach, plus a few of my own changes. Feel free to modify on your own terms.
+
+I'm not a designer; this is just what looked good to me. Feel free to make a pull request if you want to change something!
+*/
+:root {
+    --html-bg: #111;
+    --text-color: #EEE;
+    --text-accent-color: #BCBCBC;
+    --link-color: rgb(102, 156, 255);
+
+    --banner-bg: #232529;
+    --header-bg-color: #34363D;
+    --module-bg-color: #232529;
+    --content-bg-color: #232529;
+
+    --quote-bg: rgba(0, 0, 0, 0.15);
+    --code-bg: rgba(255, 255, 255, 0.05);
+}
+
+/* ========== HTML STUFF ========== */
+html {
+    background: var(--html-bg);
+}
+body {
+    background: transparent;
+}
+
+a,
+a:link,
+a:visited {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+a:active,
+a:hover {
+    filter: brightness(1.4); /* the filter can look a lil weird. original value: rgb(153, 189, 255); */
+    text-decoration: underline;
+}
+
+/* ========== TF.TV STUFF ========== */
+.header {
+    background: var(--banner-bg);
+}
+
+.header-nav-container {
+    background-color: var(--header-bg-color);
+}
+
+.module {
+    background-color: var(--module-bg-color);
+    border-radius: 0;
+    border: 1px solid #34363D;
+}
+
+.module-header {
+    background: var(--header-bg-color);
+    color: var(--text-color) !important;
+    text-shadow: 0 0 0 rgba(255, 255, 255, 0);
+    border-radius: 0;
+    border-bottom: 1px solid #aaa;
+}
+
+.module-header:hover {
+    background: #414245;
+    border-bottom: 1px solid #bbb;
+}
+
+.module-item {
+    border-bottom: 1px solid #34363D;
+}
+
+.module-item:hover {
+    background: #414245;
+}
+
+.module-item.mod-featured {
+    background-color: var(--module-bg-color);
+}
+
+.module-item-title {
+    color: var(--text-accent-color);
+}
+
+.module-item-title-sub {
+    color: var(--text-accent-color);
+    font-weight: bold;
+}
+
+/* this rule is for the live stream content type header thing */
+.module-filter-menu {
+    color: var(--text-accent-color);
+    background: #232529;
+}
+
+/* ========== FORUM BROWSING ========== */
+#content {
+    background-color: var(--content-bg-color);
+    border: 1px solid var(--content-bg-color);
+    border-radius: 0;
+}
+
+/* next five rule are for buttons seen as "page" buttons */
+.btn,
+a.btn {
+    background: #232529;
+    border: 1px solid #34363D;
+    border-radius: 0;
+}
+
+.btn:not(.mod-active):hover {
+    background: #414245;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.btn:not(.mod-active):active {
+    box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.2);
+    background: #414245;
+}
+
+.btn.is-clicked {
+    box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.2) !important;
+    background: #414245 !important;
+}
+
+.btn.mod-active {
+    background: #414245;
+    color: var(--text-accent-color);
+    box-shadow: 0 0 0 1px #414245;
+}
+
+.forum-group-header {
+    color: var(--text-accent-color);
+}
+
+/* ========== POSTS ========== */
+.thread-header-title {
+    color: var(--text-accent-color);
+}
+
+.thread-header-desc {
+    color: var(--text-accent-color);
+}
+
+#thread-container {
+    border: 1px solid #34363D;
+    border-radius: 0px;
+    border-bottom: 0;
+}
+
+#thread-frag-count {
+    background: #7ab87e;
+    background: #414245;
+}
+
+.post {
+    border-bottom: 1px solid #414245;
+    border-radius: 0;
+}
+
+.post-header {
+    background-color: var(--header-bg-color);
+    color: #666;
+}
+
+.post-num {
+    color: var(--text-color);
+}
+
+.post-body {
+    color: var(--text-color);
+}
+
+.post-body q {
+    border: 1px dashed #888;
+    background: var(--quote-bg);
+    color: var(--text-color);
+}
+
+.post-body .quote-attr {
+    color: rgb(102, 156, 255);
+}
+
+.post-body code {
+    border: 1px dotted #888;
+    background: var(--code-bg);
+    color: var(--text-color);
+}
