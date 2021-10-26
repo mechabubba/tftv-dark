@@ -1,2 +1,4 @@
 # tftv-dark
-dark mode for tftv. revamped from [tino-m's style](https://github.com/tino-m/TFTVDark/). works with stylus.
+Dark mode for teamfortress.tv. Revamped from [tino-m's dark mode style](https://github.com/tino-m/TFTVDark/). Works with stylus.
+
+Major work in progress.
