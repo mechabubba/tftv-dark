@@ -279,41 +279,26 @@ a.btn {
 .profile-table td:first-child {
     color: var(--text-color-secondary);
 }
-
-/* ========== PRIVACY POLICY ========== */
-#privacy {
+/* ========== PRIVACY POLICY + FORUM RULES ========== */
+#privacy,
+#forum-rules {
     color: var(--text-color)
 }
 
-#privacy a {
-    color: var(--link-color);
-    text-decoration: none;
-}
-
-#privacy a:active,
-#privacy a:hover {
-    text-decoration: underline;
-}
-
-#privacy h1 {
-    color: var(--header-text-color);
-}
-
-/* ========== FORUM RULES ========== */
-#forum-rules {
-    color: var(--text-color);
-}
-
+#privacy a,
 #forum-rules a {
     color: var(--link-color);
     text-decoration: none;
 }
 
+#privacy a:active,
+#privacy a:hover,
 #forum-rules a:active,
 #forum-rules a:hover {
     text-decoration: underline;
 }
 
+#privacy h1,
 #forum-rules h1 {
     color: var(--header-text-color);
 }
