@@ -285,6 +285,35 @@ a.btn {
     color: var(--text-color)
 }
 
+#privacy a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+#privacy a:active,
+#privacy a:hover {
+    text-decoration: underline;
+}
+
 #privacy h1 {
+    color: var(--header-text-color);
+}
+
+/* ========== FORUM RULES ========== */
+#forum-rules {
+    color: var(--text-color);
+}
+
+#forum-rules a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+#forum-rules a:active,
+#forum-rules a:hover {
+    text-decoration: underline;
+}
+
+#forum-rules h1 {
     color: var(--header-text-color);
 }
