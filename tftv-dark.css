@@ -29,12 +29,11 @@ I'm not a designer, nor am I super experienced with web stuff, so I encourage yo
     --upfrag-color: #6C936F;
     --downfrag-color: #B38080;
 
-    /* this is the top area. */
+    /* this is the top banner area. */
     --header-bg: #232529;
     --header-nav-bg: #34363D;
 
     /* these affect the sidebar module headers. */
-    /* this also affects */
     --module-header-bg: #34363D;
     --module-header-text-color: var(--text-color);
 
