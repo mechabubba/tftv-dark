@@ -7,26 +7,48 @@
 @version     0.1
 @license     Unlicense
 ==/UserStyle== */
-
 /*
 # **HEY READ THIS SHIT**
 This is all based on [panda106's dark mode style](https://www.teamfortress.tv/35639/tftv-dark-theme). You can find the original repository [here](https://github.com/tino-m/TFTVDark).
 
-Their original version was tf.tv's entire `main.css` file, modified with their changes they desired. This worked, but the file included completely unnecessary and redundant styling; stuff like the entirety of font awesome, tf.tv's flag data, and the rest of tf.tv's unmodified styling. This is my attempt at cutting down the waste and making a more modular approach, plus a few of my own changes. Feel free to modify on your own terms.
+Their version was tf.tv's entire `main.css` file, modified with the changes they desired. This worked, but the file included completely unnecessary and redundant styling; stuff like the entirety of font awesome, tf.tv's flag data, and the rest of tf.tv's unmodified styling. This is my attempt at cutting down the waste and making a more configurable and modular approach, plus adding a few of my own changes.
 
-I'm not a designer; this is just what looked good to me. Feel free to make a pull request if you want to change something!
+I'm not a designer, nor am I super experienced with web stuff, so I encourage you to modify this on your own terms; this is just what looked agood to me. I heavily encourage people to contribute if they want to change something. See the github repo!
 */
 :root {
     --html-bg: #111;
+
     --text-color: #EEE;
-    --text-accent-color: #BCBCBC;
-    --link-color: rgb(102, 156, 255);
+    --text-color-secondary: #BCBCBC;
+    --text-color-tertiary: #888;
+    --header-text-color: #016082;
+    --link-color: #669CFF;
+    
+    --forum-sub-color: rgba(255, 255, 255, 0.1);
+    --forum-active-sub-color: #6EA3Cf;
+    --upfrag-color: #6C936F;
+    --downfrag-color: #B38080;
 
-    --banner-bg: #232529;
-    --header-bg-color: #34363D;
-    --module-bg-color: #232529;
-    --content-bg-color: #232529;
+    /* this is the top area. */
+    --header-bg: #232529;
+    --header-nav-bg: #34363D;
 
+    /* these affect the sidebar module headers. */
+    /* this also affects */
+    --module-header-bg: #34363D;
+    --module-header-text-color: var(--text-color);
+
+    /* these affect the sidebar module contents */
+    --module-bg: #232529;
+    --module-text-color: var(--text-color);
+
+    /* this affects the main content rectangle */
+    --content-bg: #232529;
+
+    /* post garbage */
+    --post-header-bg: var(--module-header-bg);
+    --group-plus-text-color: #007099;
+    
     --quote-bg: rgba(0, 0, 0, 0.15);
     --code-bg: rgba(255, 255, 255, 0.05);
 }
@@ -37,6 +59,7 @@ html {
 }
 body {
     background: transparent;
+    color: var(--text-color);
 }
 
 a,
@@ -49,27 +72,34 @@ a:visited {
 
 a:active,
 a:hover {
-    filter: brightness(1.4); /* the filter can look a lil weird. original value: rgb(153, 189, 255); */
+    filter: brightness(1.4); /* the filter can look a lil weird sometimes. original value: rgb(153, 189, 255); */
     text-decoration: underline;
 }
 
 /* ========== TF.TV STUFF ========== */
 .header {
-    background: var(--banner-bg);
+    background: var(--header-bg);
 }
 
 .header-nav-container {
-    background-color: var(--header-bg-color);
+    background: var(--header-nav-bg);
+}
+
+/* modified border png to support changing colors. */
+/* @todo this looks a little strange when used with ::after. its not super noticible. */
+.header-nav-item-wrapper::before,
+.header-nav-item-wrapper.mod-last::after {
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAApCAYAAADwH5PvAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAACxMAAAsTAQCanBgAAABISURBVChTY/j//7+IjY1NKIhmYkACGJz/f//+/Q+i8SuDA7Cef//+kayHHHuAekDsweo2uviHCHtevXrFCGUzMIH8jyUMGBgA4rlGyAWBfl0AAAAASUVORK5CYII=");
 }
 
 .module {
-    background-color: var(--module-bg-color);
+    background: var(--module-bg);
     border-radius: 0;
     border: 1px solid #34363D;
 }
 
 .module-header {
-    background: var(--header-bg-color);
+    background: var(--module-header-bg);
     color: var(--text-color) !important;
     text-shadow: 0 0 0 rgba(255, 255, 255, 0);
     border-radius: 0;
@@ -90,32 +120,32 @@ a:hover {
 }
 
 .module-item.mod-featured {
-    background-color: var(--module-bg-color);
+    background: var(--module-bg);
 }
 
 .module-item-title {
-    color: var(--text-accent-color);
+    color: var(--text-color-secondary);
 }
 
 .module-item-title-sub {
-    color: var(--text-accent-color);
+    color: var(--text-color-secondary);
     font-weight: bold;
 }
 
-/* this rule is for the live stream content type header thing */
+/* this rule is for the live stream content header. */
 .module-filter-menu {
-    color: var(--text-accent-color);
+    color: var(--text-color-secondary);
     background: #232529;
 }
 
 /* ========== FORUM BROWSING ========== */
 #content {
-    background-color: var(--content-bg-color);
-    border: 1px solid var(--content-bg-color);
+    background-color: var(--content-bg);
+    border: none;
     border-radius: 0;
 }
 
-/* next five rule are for buttons seen as "page" buttons */
+/* === button stuff === */
 .btn,
 a.btn {
     background: #232529;
@@ -134,27 +164,57 @@ a.btn {
 }
 
 .btn.is-clicked {
-    box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.2) !important;
-    background: #414245 !important;
+    box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.2);
+    background: #414245;
 }
 
 .btn.mod-active {
     background: #414245;
-    color: var(--text-accent-color);
+    color: var(--text-color-secondary);
     box-shadow: 0 0 0 1px #414245;
 }
+/* === end button stuff === */
 
 .forum-group-header {
-    color: var(--text-accent-color);
+    color: var(--text-color-secondary);
 }
+
+.thread {
+    color: var(--text-color-tertiary);
+}
+
+.post-count {
+    color: var(--text-color-tertiary) !important;
+}
+
+.plus-frag clicked i {
+    color: var(--upfrag-color);
+}
+
+.minus-frag clicked i {
+    color: var(--downfrag-color);
+}
+
+/* === sub button stuff === */
+.sub-btn {
+    background: transparent !important;
+    color: var(--forum-sub-color);
+    border: 1px solid var(--forum-sub-color);
+}
+
+.sub-btn.active {
+    color: var(--forum-active-sub-color);
+    border: 1px solid var(--forum-active-sub-color);
+}
+/* === end sub button stuff === */
 
 /* ========== POSTS ========== */
 .thread-header-title {
-    color: var(--text-accent-color);
+    color: var(--text-color-secondary);
 }
 
 .thread-header-desc {
-    color: var(--text-accent-color);
+    color: var(--text-color-secondary);
 }
 
 #thread-container {
@@ -168,13 +228,18 @@ a.btn {
     background: #414245;
 }
 
+.thread-frag-button[clicked],
+.thread-frag-button[clicked]:hover {
+    background: #76bc87;
+}
+
 .post {
     border-bottom: 1px solid #414245;
     border-radius: 0;
 }
 
 .post-header {
-    background-color: var(--header-bg-color);
+    background: var(--post-header-bg);
     color: #666;
 }
 
@@ -182,8 +247,14 @@ a.btn {
     color: var(--text-color);
 }
 
-.post-body {
-    color: var(--text-color);
+.group-plus {
+    color: var(--group-plus-text-color) !important;
+}
+
+/* the second selector overrides posts with inline styles and overrides them. used to change the color on profiles. */
+.post-body,
+.post-body[style] {
+    color: var(--text-color) !important;
 }
 
 .post-body q {
@@ -200,4 +271,22 @@ a.btn {
     border: 1px dotted #888;
     background: var(--code-bg);
     color: var(--text-color);
+}
+
+/* ========== PROFILES ========== */
+.profile-table {
+    color: var(--text-color);
+}
+
+.profile-table td:first-child {
+    color: var(--text-color-secondary);
+}
+
+/* ========== PRIVACY POLICY ========== */
+#privacy {
+    color: var(--text-color)
+}
+
+#privacy h1 {
+    color: var(--header-text-color);
 }
