@@ -47,7 +47,6 @@ I'm not a designer, nor am I super experienced with web stuff, so I encourage yo
     /* post garbage */
     --post-header-bg: var(--module-header-bg);
     --group-plus-text-color: #007099;
-    
     --quote-bg: rgba(0, 0, 0, 0.15);
     --code-bg: rgba(255, 255, 255, 0.05);
 }
