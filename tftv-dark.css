@@ -23,28 +23,32 @@ I'm not a designer, nor am I super experienced with web stuff, so I encourage yo
     --text-color-tertiary: #888;
     --header-text-color: #016082;
     --link-color: #669CFF;
+    --highlight-color: rgba(0, 127, 127, 0.5);
     
-    --forum-sub-color: rgba(255, 255, 255, 0.1);
-    --forum-active-sub-color: #6EA3Cf;
-    --upfrag-color: #6C936F;
-    --downfrag-color: #B38080;
-
-    /* this is the top banner area. */
+    /* header */
     --header-bg: #232529;
     --header-nav-bg: #34363D;
+    
+    /* general forum stuff */
+    --content-bg: #232529;
+    --table-header-bg: linear-gradient(to bottom, #3d6a8f 0%, #2e506b 100%); /* @todo `.list-table th` */
 
-    /* these affect the sidebar module headers. */
+    /* modules */
     --module-header-bg: #34363D;
     --module-header-text-color: var(--text-color);
-
-    /* these affect the sidebar module contents */
     --module-bg: #232529;
     --module-text-color: var(--text-color);
-
-    /* this affects the main content rectangle */
-    --content-bg: #232529;
-
-    /* post garbage */
+    
+    /* forum browsing */
+    --forum-sub-color: rgba(255, 255, 255, 0.1);
+    --forum-active-sub-color: #6EA3Cf;
+    --forum-upfrag-color: #6C936F;
+    --forum-downfrag-color: #B38080;
+    
+    /* post stuff */
+    --post-positive-frag-color: #64c66c;
+    --post-negative-frag-color: #dd6e6e;
+    --post-neutral-frag-color: #888;
     --post-header-bg: var(--module-header-bg);
     --group-plus-text-color: #007099;
     --quote-bg: rgba(0, 0, 0, 0.15);
@@ -70,8 +74,14 @@ a:visited {
 
 a:active,
 a:hover {
-    filter: brightness(1.4); /* the filter can look a lil weird sometimes. original value: rgb(153, 189, 255); */
+    filter: brightness(1.4);
+    /* the filter can look a lil weird sometimes. original value: rgb(153, 189, 255); */
     text-decoration: underline;
+}
+
+/* personal preference :) */
+::selection, [contenteditable]::selection {
+	background: var(--highlight-color);
 }
 
 /* ========== TF.TV STUFF ========== */
@@ -83,11 +93,15 @@ a:hover {
     background: var(--header-nav-bg);
 }
 
-/* modified border png to support changing colors. */
+/* modified border png that uses transparency instead of gray colors. lets us change the header colors */
 /* @todo this looks a little strange when used with ::after. its not super noticible. */
 .header-nav-item-wrapper::before,
 .header-nav-item-wrapper.mod-last::after {
     background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAApCAYAAADwH5PvAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAACxMAAAsTAQCanBgAAABISURBVChTY/j//7+IjY1NKIhmYkACGJz/f//+/Q+i8SuDA7Cef//+kayHHHuAekDsweo2uviHCHtevXrFCGUzMIH8jyUMGBgA4rlGyAWBfl0AAAAASUVORK5CYII=");
+}
+
+.header-nav-item:hover::after {
+    border-bottom: 3px solid rgba(255, 255, 255, 0.5);
 }
 
 .module {
@@ -99,7 +113,7 @@ a:hover {
 .module-header {
     background: var(--module-header-bg);
     color: var(--text-color) !important;
-    text-shadow: 0 0 0 rgba(255, 255, 255, 0);
+    text-shadow: 0 0 0 transparent;
     border-radius: 0;
     border-bottom: 1px solid #aaa;
 }
@@ -172,7 +186,6 @@ a.btn {
     box-shadow: 0 0 0 1px #414245;
 }
 /* === end button stuff === */
-
 .forum-group-header {
     color: var(--text-color-secondary);
 }
@@ -186,11 +199,11 @@ a.btn {
 }
 
 .plus-frag clicked i {
-    color: var(--upfrag-color);
+    color: var(--forum-upfrag-color);
 }
 
 .minus-frag clicked i {
-    color: var(--downfrag-color);
+    color: var(--forum-downfrag-color);
 }
 
 /* === sub button stuff === */
@@ -205,7 +218,6 @@ a.btn {
     border: 1px solid var(--forum-active-sub-color);
 }
 /* === end sub button stuff === */
-
 /* ========== POSTS ========== */
 .thread-header-title {
     color: var(--text-color-secondary);
@@ -271,6 +283,34 @@ a.btn {
     color: var(--text-color);
 }
 
+.post-frag-count.positive {
+    color: var(--post-positive-frag-color);
+}
+
+.post-frag-count.negative {
+    color: var(--post-negative-frag-color);
+}
+
+.post-frag-count.neutral {
+    color: var(--post-neutral-frag-color);
+}
+
+.post-frag-btn.plus.clicked::before {
+    background: var(--post-positive-frag-color);
+}
+
+.post-frag-btn.plus.clicked {
+    color: var(--post-positive-frag-color);
+}
+
+.post-frag-btn.minus.clicked::before {
+    background: var(--post-negative-frag-color);
+}
+
+.post-frag-btn.minus.clicked {
+    color: var(--post-negative-frag-color);
+}
+
 /* ========== PROFILES ========== */
 .profile-table {
     color: var(--text-color);
@@ -279,10 +319,11 @@ a.btn {
 .profile-table td:first-child {
     color: var(--text-color-secondary);
 }
+
 /* ========== PRIVACY POLICY + FORUM RULES ========== */
 #privacy,
 #forum-rules {
-    color: var(--text-color)
+    color: var(--text-color);
 }
 
 #privacy a,
@@ -300,5 +341,14 @@ a.btn {
 
 #privacy h1,
 #forum-rules h1 {
+    color: var(--header-text-color);
+}
+
+/* ========== ARTICLES ========== */
+#article-body ul li::before {
+    background: var(--text-color);
+}
+
+#article-body h1, #article-body h2, #article-body h3, #article-body h4, #article-body h5, #article-body h6 {
     color: var(--header-text-color);
 }
