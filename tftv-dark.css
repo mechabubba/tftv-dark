@@ -7,6 +7,7 @@
 @version     0.1
 @license     Unlicense
 ==/UserStyle== */
+
 /*
 # **HEY READ THIS SHIT**
 This is all based on [panda106's dark mode style](https://www.teamfortress.tv/35639/tftv-dark-theme). You can find the original repository [here](https://github.com/tino-m/TFTVDark).
@@ -15,6 +16,7 @@ Their version was tf.tv's entire `main.css` file, modified with the changes they
 
 I'm not a designer, nor am I super experienced with web stuff, so I encourage you to modify this on your own terms; this is just what looked agood to me. I heavily encourage people to contribute if they want to change something. See the github repo!
 */
+
 :root {
     --html-bg: #111;
 
@@ -25,6 +27,9 @@ I'm not a designer, nor am I super experienced with web stuff, so I encourage yo
     --link-color: #669CFF;
     --highlight-color: rgba(0, 127, 127, 0.5);
     
+    --red: #C54446; 
+    --blu: #5885A2;
+        
     /* header */
     --header-bg: #232529;
     --header-nav-bg: #34363D;
@@ -32,7 +37,12 @@ I'm not a designer, nor am I super experienced with web stuff, so I encourage yo
     /* general forum stuff */
     --content-bg: #232529;
     --table-header-bg: linear-gradient(to bottom, #3d6a8f 0%, #2e506b 100%); /* @todo `.list-table th` */
-
+    --upfrag-color:   #64c66c; /* og: #6c936f */
+    --downfrag-color: #dd6e6e; /* og: #b38080 */
+    --neutralfrag-color: #888;
+    
+    --content-width: 758px;  /* og: 758px */
+    
     /* modules */
     --module-header-bg: #34363D;
     --module-header-text-color: var(--text-color);
@@ -42,20 +52,21 @@ I'm not a designer, nor am I super experienced with web stuff, so I encourage yo
     /* forum browsing */
     --forum-sub-color: rgba(255, 255, 255, 0.1);
     --forum-active-sub-color: #6EA3Cf;
-    --forum-upfrag-color: #6C936F;
-    --forum-downfrag-color: #B38080;
     
     /* post stuff */
-    --post-positive-frag-color: #64c66c;
-    --post-negative-frag-color: #dd6e6e;
-    --post-neutral-frag-color: #888;
     --post-header-bg: var(--module-header-bg);
     --group-plus-text-color: #007099;
     --quote-bg: rgba(0, 0, 0, 0.15);
     --code-bg: rgba(255, 255, 255, 0.05);
+
+    /* event stuff */
+    --event-panel-bg: var(--module-header-bg);
+    --event-panel-border-color: var(--content-bg);
 }
 
-/* ========== HTML STUFF ========== */
+/* ========== *
+ * HTML STUFF *
+ * ========== */
 html {
     background: var(--html-bg);
 }
@@ -74,17 +85,17 @@ a:visited {
 
 a:active,
 a:hover {
-    filter: brightness(1.4);
-    /* the filter can look a lil weird sometimes. original value: rgb(153, 189, 255); */
+    filter: brightness(1.4); /* the filter can look a lil weird sometimes. original value: rgb(153, 189, 255); */
     text-decoration: underline;
 }
 
-/* personal preference :) */
 ::selection, [contenteditable]::selection {
 	background: var(--highlight-color);
 }
 
-/* ========== TF.TV STUFF ========== */
+/* ====== *
+ * GLOBAL *
+ * ====== */
 .header {
     background: var(--header-bg);
 }
@@ -93,7 +104,7 @@ a:hover {
     background: var(--header-nav-bg);
 }
 
-/* modified border png that uses transparency instead of gray colors. lets us change the header colors */
+/* modified border png that uses transparency instead of gray colors. lets us change the header colors without things looking too weird. */
 /* @todo this looks a little strange when used with ::after. its not super noticible. */
 .header-nav-item-wrapper::before,
 .header-nav-item-wrapper.mod-last::after {
@@ -144,18 +155,50 @@ a:hover {
     font-weight: bold;
 }
 
-/* this rule is for the live stream content header. */
+/* this rule is for the live stream content header */
 .module-filter-menu {
     color: var(--text-color-secondary);
     background: #232529;
 }
 
-/* ========== FORUM BROWSING ========== */
+#wrapper {
+    width: calc(440px + var(--content-width)); /* default: 1198px */
+}
+
 #content {
     background-color: var(--content-bg);
     border: none;
     border-radius: 0;
+    width: var(--content-width); /* default: 758px */
 }
+
+/* ======== *
+ * HOMEPAGE *
+ * ======== */
+.card {
+    border: 0;
+    background: var(--post-header-bg); /* todo give its own css var */
+}
+
+#main-feature-title-wrapper {
+    color: var(--text-color);
+}
+
+#main-feature-desc {
+    color: var(--text-color-secondary);
+}
+
+#article-list ul li a {
+    color: var(--link-color); /* @todo looks a lil weird */
+}
+
+.sub-feature-title {
+    color: var(--text-color);
+}
+
+/* ===== *
+ * FORUM *
+ * ===== */
 
 /* === button stuff === */
 .btn,
@@ -186,6 +229,7 @@ a.btn {
     box-shadow: 0 0 0 1px #414245;
 }
 /* === end button stuff === */
+
 .forum-group-header {
     color: var(--text-color-secondary);
 }
@@ -199,11 +243,11 @@ a.btn {
 }
 
 .plus-frag clicked i {
-    color: var(--forum-upfrag-color);
+    color: var(--upfrag-color);
 }
 
 .minus-frag clicked i {
-    color: var(--forum-downfrag-color);
+    color: var(--downfrag-color);
 }
 
 /* === sub button stuff === */
@@ -218,7 +262,10 @@ a.btn {
     border: 1px solid var(--forum-active-sub-color);
 }
 /* === end sub button stuff === */
-/* ========== POSTS ========== */
+
+/* ===== *
+ * POSTS *
+ * ===== */
 .thread-header-title {
     color: var(--text-color-secondary);
 }
@@ -284,34 +331,36 @@ a.btn {
 }
 
 .post-frag-count.positive {
-    color: var(--post-positive-frag-color);
+    color: var(--upfrag-color);
 }
 
 .post-frag-count.negative {
-    color: var(--post-negative-frag-color);
+    color: var(--downfrag-color);
 }
 
 .post-frag-count.neutral {
-    color: var(--post-neutral-frag-color);
+    color: var(--neutralfrag-color);
 }
 
 .post-frag-btn.plus.clicked::before {
-    background: var(--post-positive-frag-color);
+    background: var(--upfrag-color);
 }
 
 .post-frag-btn.plus.clicked {
-    color: var(--post-positive-frag-color);
+    color: var(--upfrag-color);
 }
 
 .post-frag-btn.minus.clicked::before {
-    background: var(--post-negative-frag-color);
+    background: var(--downfrag-color);
 }
 
 .post-frag-btn.minus.clicked {
-    color: var(--post-negative-frag-color);
+    color: var(--downfrag-color);
 }
 
-/* ========== PROFILES ========== */
+/* ============= *
+ * USER PROFILES *
+ * ============= */
 .profile-table {
     color: var(--text-color);
 }
@@ -320,7 +369,9 @@ a.btn {
     color: var(--text-color-secondary);
 }
 
-/* ========== PRIVACY POLICY + FORUM RULES ========== */
+/* ============================ *
+ * PRIVACY POLICY + FORUM RULES *
+ * ============================ */
 #privacy,
 #forum-rules {
     color: var(--text-color);
@@ -344,7 +395,9 @@ a.btn {
     color: var(--header-text-color);
 }
 
-/* ========== ARTICLES ========== */
+/* ======== *
+ * ARTICLES *
+ * ======== */
 #article-body ul li::before {
     background: var(--text-color);
 }
@@ -352,3 +405,82 @@ a.btn {
 #article-body h1, #article-body h2, #article-body h3, #article-body h4, #article-body h5, #article-body h6 {
     color: var(--header-text-color);
 }
+
+/* ====== *
+ * EVENTS *
+ * ====== */
+#event-container {
+    background: var(--post-header-bg);
+    border: 0;
+}
+
+#event-info .event-section {
+    border-right: 1px solid var(--event-panel-border-color);
+}
+
+#event-desc {
+    border-top: 1px solid var(--event-panel-border-color);
+}
+
+#schedule-table td:first-child {
+    color: var(--text-color-secondary);
+}
+
+#schedule-table td:nth-child(2) {
+    color: var(--text-color);
+}
+
+/* game stats container card stuff */
+/* side note: this is cool as hell why doesn't rgl use this */
+.game-stats {
+    color: var(--text-color);
+}
+
+.vs-info {
+    color: var(--text-color);
+}
+
+.vs-info .team-name-1 {
+    color: var(--red);
+}
+
+.vs-info .team-name-2 {
+    color: var(--blu);
+}
+
+.game-stats thead {
+    color: var(--text-color-secondary)
+}
+
+.game-stats .player.red {
+    color: var(--red);
+}
+
+.game-stats .player.blue {
+    color: var(--blu);
+}
+
+.game-stats tr.odd td {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.game-stats td, th {
+    border-bottom: 1px solid rgba(255, 255, 255);
+}
+
+.game-stats .player,
+.game-stats .class,
+.game-stats .damage,
+.game-stats .deaths, 
+.game-stats .heals {
+    border-right: 1px solid rgba(255, 255, 255);
+}
+
+.game-stats tr:last-child td {
+    border-bottom: none;
+}
+
+.game-stats .unfocus-stat {
+    color: #666;
+}
+/* end game stats container card stuff */
